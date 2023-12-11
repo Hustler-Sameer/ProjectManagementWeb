@@ -1,6 +1,9 @@
 // here we need to show the detials of selected project and we need to pass the id of project selected from sidebar for identifying the project selected
 
-export default function SelectedProject({ project, onDelete }) {
+import Tasks from "../Task";
+
+
+export default function SelectedProject({ project, onDelete, onAddTask , onDeleteTask , tasks }) {
   const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -26,7 +29,7 @@ export default function SelectedProject({ project, onDelete }) {
           {project.description}
         </p>
       </header>
-      Tasks
+     <Tasks onAddTask={onAddTask} onDeleteTask={onDeleteTask} tasks={tasks}/>
     </div>
   );
 }
