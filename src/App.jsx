@@ -53,11 +53,26 @@ function App() {
       };
     });
   }
-   let SelectedProjectForSelectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
-   // this find method is used here to find the element by id
-   console.log(SelectedProjectForSelectedProject)
-  let content = <SelectedProject project={SelectedProjectForSelectedProject}/>;
-  // setting it to default 
+
+  function handleDeleteProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id != SelectedProjectForSelectedProject
+        
+        ),
+      };
+    });
+  }
+  let SelectedProjectForSelectedProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
+  // this find method is used here to find the element by id
+  console.log(SelectedProjectForSelectedProject);
+  let content = <SelectedProject project={SelectedProjectForSelectedProject} onDelete={handleDeleteProject}/>;
+  // setting it to default
   if (projectsState.selectedProjectId === null) {
     content = (
       <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
@@ -65,7 +80,7 @@ function App() {
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
- 
+
   return (
     <main className="h-screen my-8 flex gap-8">
       <ProjectSideBar
